@@ -1,0 +1,86 @@
+@function grad($l-color, $l-width, $g-unit){
+	@return #{', '+$l-color+' '+$l-width+' , transparent '+ $l-width +', transparent '+ $g-unit};
+}
+
+@function grid-string($columns, $l-color, $l-width, $x-unit, $y-unit, $hor:true) {
+	
+	$string: 'repeating-linear-gradient(-90deg, '+ $l-color ;
+  	@for $i from 0 through ($columns) {
+     $string: $string + grad($l-color, $l-width, $x-unit);
+  	}	
+  	
+  	@if ($hor == true){
+		$string: $string +'), repeating-linear-gradient(0deg, '+ $l-color ;
+	  	@for $i from 0 through ($columns) {
+	     $string: $string + grad($l-color, $l-width, $y-unit);
+	  	}
+  	}
+	$string: $string + ')';
+	@return $string;
+}
+
+
+@mixin grid-background-r($grid, $hor:true) {
+	background-size: #{ map-get($grid, width) } #{ (map-get($grid, width)*map-get($grid, ratio) )}; 
+	background-position: left top;
+	$string:grid-string(map-get($grid, columns), map-get($grid, grid-line-color), map-get($grid, grid-line-width), map-get($grid, unit-w), map-get($grid, unit-h), $hor);
+  	background-image: #{ $string };
+  	background-color: rgba(86,61,124,.05);
+}
+
+@mixin grid-background($grids:$grids-default, $hor:true) {
+	
+	$grids: initialize-grids($grids);
+	@each $key, $value in $grids {
+  		$max:false;
+  		$min:false;
+      	@if map-has-key($value, screen-max){
+			$max: map-get( $value , screen-max);
+      	}
+      	@if map-has-key($value, screen-min){
+			$min: map-get( $value , screen-min);
+      	} 
+      	@if $min and $max {
+      		@media (min-width: $min) and (max-width: $max)  {
+				@include grid-background-r($value,$hor );
+			}
+		}@else{
+			@if $max{
+				@media (max-width: $max)  {
+					@include grid-background-r($value,$hor );
+				}
+
+			}@else{
+				@if $min{
+					@media (min-width: $min){
+						@include grid-background-r($value,$hor );
+					}
+
+				}@else{
+					@include grid-background-r($value,$hor );
+				}
+			}
+      	}
+    }
+}
+
+@mixin box-bg{
+	background-color: #eee;
+	background-color: rgba(86,61,124,.15);
+	border: 1px solid #ddd;
+	border: 1px solid rgba(86,61,124,.2);
+	small{
+		margin-top: 10px;
+		margin-bottom: 10px;
+		color: rgba(86,61,124,.5);
+		display: block;
+	}
+	h3{
+		margin-bottom: 30px;
+		color: rgba(86,61,124,.5);
+	}
+	p{
+		color: rgba(86,61,124,.5);
+	}
+}
+

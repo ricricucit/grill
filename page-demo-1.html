@@ -4,6 +4,69 @@ title:  "Demo 1"
 permalink: /demo-1/
 ---
 
-<h1>{{page.title}}</h1>
+<h1>1. Attributes: Width & Height</h1>
 
-<div>asfasf</div>
+
+			</article>
+		</div>
+	</div>
+</div>
+
+<div class="top-news">
+	<section>
+		<article class="cover-story"><small>width:6, height:8</small></article>
+		<article><small>width:3</small></article>
+		<article><small>width:3</small></article>
+		<article class="short-story"><small>width:2</small></article>
+		<article class="short-story"><small>width:2</small></article>
+		<article class="short-story"><small>width:2</small></article>
+		<article><small>width:3</small></article>
+		<article><small>width:3</small></article>
+	</section>
+</div>
+
+
+
+			
+<div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+			<article class="post-content">
+			
+
+<p>SCSS</p>
+{% highlight scss %}
+.top-news{
+   @include make-grill();
+   section{
+      @include make-group();   
+      article{      
+         @include make-box( (width:3) );
+         &.cover-story{
+            @include make-box( (width:6, height:8) );
+         }
+         &.short-story{
+            @include make-box( (width:2) );
+         }       
+      }
+   }
+}
+{% endhighlight %}
+
+<p>HTML</p>
+{% highlight html %}
+
+<div class="top-news">
+   <section>
+      <article class="cover-story">...</article>
+      <article>...</article>
+      <article>...</article>
+      <article class="short-story">...</article>
+      <article class="short-story">...</article>
+      <article class="short-story">...</article>
+      <article>...</article>
+      <article>...</article>
+   </section>
+</div>
+
+{% endhighlight %}

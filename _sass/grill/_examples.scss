@@ -1,0 +1,18 @@
+.top-news{
+	@include make-grill();
+	@include grid-background();
+	section{
+		@include make-group();	
+		article{		
+			@include make-box( (width:3) );
+			@include box-bg;
+			&.cover-story{
+				@include make-box( (width:6, height:8) );
+			}
+			&.short-story{
+				@include make-box( (width:2 ) );
+			}
+			
+		}
+	}
+}

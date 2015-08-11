@@ -1,0 +1,380 @@
+
+//bootstrap default
+$screen-sm-min:             768px !default;
+$screen-md-min:             992px !default;
+$screen-lg-min:             1200px !default;
+
+$grid-columns:              12 !default;
+$grid-gutter-width:         30px !default;
+
+$container-sm:             	(720px + $grid-gutter-width) !default;
+$container-md:            	(940px + $grid-gutter-width) !default;
+$container-lg:      		(1140px + $grid-gutter-width) !default;
+///////
+
+
+$grid-default: (
+	width: 					100vw,
+	columns: 				$grid-columns,
+	gutters: 				$grid-gutter-width,
+	vertical-grid:			true,
+	vertical-adjust:		true,
+	ratio:		 			1,
+	grid-line-color:		white,
+	grid-line-width: 		2px
+);
+
+$grid-xs-default: (
+    width: 					100vw
+);
+
+$grid-sm-default: (
+    width: 					$container-sm,
+	screen-min:				$screen-sm-min
+);
+
+$grid-md-default: (
+    width: 					$container-md,
+	screen-min:				$screen-md-min
+);
+
+$grid-lg-default: (
+	width: 					$container-lg,
+	screen-min:				$screen-lg-min
+);
+
+
+$grids-default: (
+	xs: map-merge($grid-default, $grid-xs-default),
+	sm: map-merge($grid-default, $grid-sm-default),
+	md: map-merge($grid-default, $grid-md-default),
+	lg: map-merge($grid-default, $grid-lg-default)
+);
+
+$last-grids:$grids-default;
+
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+
+@function initialize-grid($grid, $grid-default) {
+	$grid-m: map-merge($grid-default, $grid);
+
+		$u-w:map-get($grid-m, width) / map-get($grid-m, columns);
+		$u-h: map-get($grid-m, width) / map-get($grid-m, columns) * 1/map-get($grid-m, ratio);
+	
+	$calc-values:(
+		unit-w: $u-w,
+		unit-h: $u-h
+		);
+	@return map-merge($grid-m, $calc-values);
+}
+
+
+@function initialize-grids($grids){
+
+		$prev:false;
+		$prev-grid-key: nil;
+		$prev-grid: nil;
+
+		//todo: sort the map based on values of screen-min
+		$grids-merged: ();
+
+		@each $grid-key, $grid in $grids {
+          	@if map-has-key($grids-default, $grid-key){
+				$grid: initialize-grid( $grid ,map-get($grids-default,  $grid-key));
+          	} @else{
+				$grid: initialize-grid( $grid, $grid-default);
+          	}
+            @if $prev {	
+            	$max: ( map-get($grid, screen-min) - 1 );
+
+                $prev-grid:map-merge($prev-grid, ( screen-max: $max));
+                $grids-merged:map-merge($grids-merged, ( #{$prev-grid-key} :$prev-grid) );
+            }
+            $prev:true;
+            $prev-grid : $grid;
+            $prev-grid-key : $grid-key;    
+        }
+        @if $prev{
+			 $grids-merged:map-merge($grids-merged, ( #{$prev-grid-key} :$prev-grid) );	
+		}
+	$last-grids:$grids-merged;      
+	@return $grids-merged;
+}
+
+
+@function replace-attribute-key($attributes,$old-attribute-key,$new-attribute-key) {
+	@if map-has-key($attributes, $old-attribute-key) {
+		$attr: map-get( $attributes, $old-attribute-key);
+		$attributes:map-remove($attributes, $old-attribute-key);
+		$attributes:map-merge($attributes,(#{$new-attribute-key} :$attr))
+	}
+	@return $attributes;
+}
+
+@function initialize-attributes($attributes) {
+
+	$attributes: replace-attribute-key($attributes, w, width);
+	$attributes: replace-attribute-key($attributes, h, height);
+	$attributes: replace-attribute-key($attributes, ox, offset-x);
+	$attributes: replace-attribute-key($attributes, oy, offset-y);
+	$attributes: replace-attribute-key($attributes, x, left);
+	$attributes: replace-attribute-key($attributes, y, top);
+	$attributes: replace-attribute-key($attributes, z, z-index);
+	$attributes: replace-attribute-key($attributes, p, position);
+
+	@if map-has-key($attributes, position) {
+		$attr: map-get( $attributes, position);
+		@if $attr == a { $attr: absolute;}
+		@if $attr == r { $attr: relative;}
+		$attributes:map-merge($attributes,(position :$attr));
+	}
+	@return $attributes;
+}
+
+@mixin clear-fix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+
+
+
+
+@mixin grill-core-r($mixin,$grids,$grid-key,$attributes){
+	@if $mixin == make-grill{
+		@include make-grill-r($grids, $grid-key);
+	}
+	@if $mixin == make-group{
+		@include make-group-r($grids, $grid-key, $attributes);
+	}
+	@if $mixin == set-box{
+		@include set-box-r($grids, $grid-key, $attributes);
+	}
+	@if $mixin == make-box{
+		@include make-box-r($grids, $grid-key, $attributes);
+	}
+}
+
+@mixin grill-core($mixin,$grids,$grid-key,$attributes){
+	$grid:map-get($grids, $grid-key);
+	@if map-get( $grid , screen-min) and map-has-key($grid, screen-max) {
+  		$min: map-get( $grid , screen-min);
+  		$max: map-get( $grid , screen-max);
+  		@media (min-width: $min) and (max-width: $max)  {
+			@include grill-core-r($mixin,$grids,$grid-key,$attributes);
+		}
+	}
+	@if map-has-key($grid, screen-max) and not(map-get( $grid , screen-min)){
+		$max: map-get( $grid , screen-max);
+		@media (max-width: $max)  {
+			@include grill-core-r($mixin,$grids,$grid-key,$attributes);
+		}
+	}		
+	@if map-get( $grid , screen-min) and not(map-has-key($grid, screen-max)){
+		$min: map-get( $grid , screen-min);
+		@media (min-width: $min){
+			@include grill-core-r($mixin,$grids,$grid-key,$attributes);
+		}
+	}		
+	@if not(map-get( $grid , screen-min)) and not(map-has-key($grid, screen-max)){	
+		@include grill-core-r($mixin,$grids,$grid-key,$attributes);
+	}
+}
+
+
+@mixin grill-loop($mixin, $grids, $grids-keys:all, $attributes:(empty:0) ){
+	$grids: initialize-grids($grids);
+	
+	@if $grids-keys== all{
+		$grids-keys:map-keys($grids);
+	} 
+	@each $grid-key in $grids-keys {
+		@include grill-core($mixin,$grids,$grid-key,$attributes);
+	}
+}
+
+
+@mixin set-attributes($grid, $attributes:(empty:0)){
+	$attributes:initialize-attributes($attributes);
+	$unit-h:map-get($grid, unit-h);
+  	$unit-w:map-get($grid, unit-w);
+  		@if map-has-key($attributes, width) {
+    	width: $unit-w * map-get($attributes, width);
+  	}
+
+  	@if map-has-key($attributes, height) {
+  		@if map-get($attributes, height)==auto{
+  			height: auto;
+  			padding-bottom: 0;
+  		} @else {
+			
+				height: $unit-h * map-get($attributes, height);
+			
+  		}  
+  	} @else {
+  		@if map-get($grid, vertical-grid) and map-has-key($attributes, width){
+    		
+		
+				height: $unit-h * map-get($attributes, width);
+			
+			$attributes: map-merge($attributes, ( height: map-get($attributes, width)));
+    	} 
+  	}
+	
+  	@if map-has-key($attributes, offset-x) {
+    	margin-left: $unit-w * map-get($attributes, offset-x) ;
+  	}
+
+   	@if map-has-key($attributes, left) {
+    	left: $unit-w * map-get($attributes, left) ;
+  	}
+
+  	@if map-has-key($attributes, offset-y) {
+    	margin-top: $unit-h * map-get($attributes, offset-y) ;
+  	}
+
+   	@if map-has-key($attributes, top) {
+    	
+    
+				top: $unit-h * map-get($attributes, top) ;
+		    	@if map-get($grid, vertical-adjust){
+		    		margin-bottom: $unit-h * map-get($attributes, top) ;
+    			}
+			}
+  	
+
+  	@if map-has-key($attributes, z-index) {
+    	z-index: map-get($attributes, z-index);
+  	}
+	
+	@if map-has-key($attributes, position) {
+    	@if map-get($attributes, position)==absolute{
+  			margin-bottom: 0;
+  		} 
+  		position: #{map-get($attributes, position)};
+  	}	
+}
+
+@mixin make-grill-r($grids, $grid-key) {
+	$grid:map-get($grids, $grid-key);
+  	$gutters: map-get($grid, gutters);
+  	$width: map-get($grid, width);
+  	width: $width;
+  	padding-left:  ($gutters / 2);
+  	padding-right: ($gutters / 2);
+}
+
+@mixin make-group-r($grids, $grid-key, $attributes:(empty:0)) {
+	$grid:map-get($grids, $grid-key);
+  	$gutters: map-get($grid, gutters);
+  	margin-left:  ceil(($gutters / -2));
+  	margin-right: floor(($gutters / -2));
+  	position: relative;
+  	@include set-attributes($grid, $attributes);
+}
+
+
+
+@mixin set-box-r($grids, $grid-key, $attributes:(empty:0))  {
+	$grid:map-get($grids, $grid-key);
+  	@include set-attributes($grid, $attributes);	
+}
+
+@mixin make-box-r($grids, $grid-key, $attributes:(empty:0))  {
+	$grid:map-get($grids, $grid-key);
+	$gutters: map-get($grid, gutters);
+  	padding-left:  ($gutters / 2);
+  	padding-right: ($gutters / 2);
+  	@include grill-core-r(set-box,$grids,$grid-key,$attributes);
+  	
+}
+
+
+@function detect-arguments($arg-1, $arg-2, $arg-3){
+		$attributes:();
+		$grids-keys:all;
+		$grids:$last-grids;
+	
+	@if ($arg-1 != empty) and ($arg-2 != empty) and ($arg-3 != empty){
+		$attributes:$arg-1;
+		$grids-keys:$arg-2;
+		$grids:$arg-3;
+	}
+	@if ($arg-1 != empty) and ($arg-2 != empty) and ($arg-3 == empty){
+		@if type-of($arg-1) == map {
+			@if type-of($arg-2) == map {
+				$attributes:$arg-1;
+				$grids-keys:all;
+				$grids:$arg-2;
+			} @else{
+				$attributes:$arg-1;
+				$grids-keys:$arg-2;
+				$grids:$last-grids;
+			}
+		} @else{
+			$attributes:();
+			$grids-keys:$arg-1;
+			$grids:$arg-2;
+		}
+	}
+	@if ($arg-1 != empty) and ($arg-2 == empty) and ($arg-3 == empty){
+		@if type-of($arg-1) == map {
+			@if type-of(nth(map-values($arg-1),1)) == map {
+				$attributes:();
+				$grids-keys:all;
+				$grids:$arg-1;
+			}@else{
+				$attributes:$arg-1;
+				$grids-keys:all;
+				$grids:$last-grids;
+			}
+
+		}@else{
+			$attributes:();
+			$grids-keys:$arg-1;
+			$grids:$last-grids;
+		}
+	}
+	@return (attributes:$attributes, grids-keys:$grids-keys, grids:$grids);
+}
+
+//PUBLIC MIXING
+@mixin make-grill ($grids:$grids-default) {	
+	@include clear-fix;
+	margin-right: auto;
+  	margin-left: auto;
+    @include grill-loop( make-grill, $grids);
+}
+
+@mixin make-group ($attributes:empty, $grids-keys:empty, $grids:empty) {
+	$arg:detect-arguments($attributes, $grids-keys, $grids);
+	$attributes:map-get($arg, attributes);
+	$grids-keys:map-get($arg, grids-keys);
+	$grids:map-get($arg, grids);
+	@include clear-fix;	
+	@include grill-loop( make-group, $grids, $grids-keys, $attributes);
+}
+
+@mixin make-box ($attributes:empty, $grids-keys:empty, $grids:empty) {
+	$arg:detect-arguments($attributes, $grids-keys, $grids);
+	$attributes:map-get($arg, attributes);
+	$grids-keys:map-get($arg, grids-keys);
+	$grids:map-get($arg, grids);
+  	position: relative;
+  	float: left;
+  	min-height: 1px;
+    @include grill-loop( make-box, $grids, $grids-keys, $attributes);
+}
