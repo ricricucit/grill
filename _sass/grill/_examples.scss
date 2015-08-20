@@ -36,3 +36,23 @@
 		}
 	}
 }
+
+/////////////////////////////////////////////////////////////////////
+
+.my-grill-300{
+	@include make-grill();
+	@include grid-background($hor:false);
+	section{
+		@include make-group();	
+		article{		
+			@include make-box( (width:5, height:auto, offset-x:1, top:-(1.5) ) );
+			@include box-bg;
+			&:nth-child(1){
+				@include make-box( (top:-0));
+			}
+			&:nth-child(2n+1){
+				@include make-box( (offset-x:6));
+			}
+		}
+	}
+}
