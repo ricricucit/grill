@@ -16,3 +16,23 @@
 		}
 	}
 }
+
+/////////////////////////////////////////////////////////////////////
+
+.my-grill-200{
+	@include make-grill();
+	@include grid-background();
+	section{
+		@include make-group();	
+		article{		
+			@include make-box( (width:6, height:4) );
+			@include box-bg;
+			&:nth-child(1){
+				@include make-box( (offset-x:2) );
+			}
+			&:nth-child(2){
+				@include make-box( (offset-x:4, top:-2) );
+			}
+		}
+	}
+}
