@@ -56,3 +56,82 @@
 		}
 	}
 }
+
+/////////////////////////////////////////////////////////////////////
+
+.fibonacci{
+	@include make-grill();
+	
+	ul{
+		@include make-group( (height:7, offset-y:(1/2)) );
+		@include grid-background();
+		list-style-type: none;	
+		li{		
+			@include box-bg;
+			overflow: hidden;
+			&:nth-child(1){
+				@include make-box( (width:1, left:(2.5), top:(4.5), position:absolute) );
+			}
+			&:nth-child(2){
+				@include make-box( (width:1, left:(3.5), top:(4.5), position:absolute) );
+			}
+			&:nth-child(3){
+				@include make-box( (width:2, left:(2.5), top:(5.5), position:absolute) );
+			}
+			&:nth-child(4){
+				@include make-box( (width:3, left:-(.5), top:(4.5), position:absolute) );
+			}
+			&:nth-child(5){
+				@include make-box( (width:5, left:-(.5), top:-(.5), position:absolute) );
+			}
+			&:nth-child(6){
+				@include make-box( (width:8, left:(4.5), top:-(.5), position:absolute) );
+			}
+
+			&:before {
+				content: "border";
+				overflow: hidden;
+				text-indent: -9999rem;
+				font-size: 0;
+				line-height: 0;
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				width: 200%;
+				height: 200%;
+				border-radius: 200%;
+				border: 2px solid rgba(86,61,124,.3);
+
+			}
+			&:nth-child(4n+2):before {
+				right:0; left:auto;
+			}
+			&:nth-child(4n+3):before {
+				right:0; left:auto;
+				bottom:0; top:auto;
+			}
+			&:nth-child(4n+4):before {
+				bottom:0; top:auto;
+			}
+		}
+	}
+}
+
+/////////////////////////////////////////////////////////////////////
+
+.news{
+	@include make-grill();
+	@include grid-background();
+	section{
+		@include make-group();	
+		article{		
+			@include make-box( (width:4) );
+			@include make-box( (width:6), xs );
+			@include box-bg;
+			&.cover-story{
+				@include make-box( (width:8) );
+				@include make-box( (width:12), xs );
+			}
+		}
+	}
+}

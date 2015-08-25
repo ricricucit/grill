@@ -4,7 +4,7 @@ title:  "Demo"
 permalink: /demo-1/
 ---
 
-<h1>1. Attributes: Width & Height</h1>
+<h1>1. Width & Height</h1>
 
 
 			</article>
@@ -201,7 +201,7 @@ permalink: /demo-1/
       article{    
          @include make-box( (width:5, height:auto, offset-x:1, top:-(1.5) ) );
          &:nth-child(1){
-            @include make-box( (top:-0));
+            @include make-box( (top:0));
          }
          &:nth-child(2n+1){
             @include make-box( (offset-x:6));
@@ -223,3 +223,138 @@ permalink: /demo-1/
 </div>
 
 {% endhighlight %}
+
+<!--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-->
+
+<hr/>
+<h1>4. Absolute Positioning</h1>
+
+
+         </article>
+      </div>
+   </div>
+</div>
+
+<div class="fibonacci">
+   <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li><small>width:3, left:-(.5), top:(4.5), position:absolute</small></li>
+      <li><small>width:5, left:-(.5), top:-(.5), position:absolute</small></li>
+      <li><small>width:8, left:(4.5), top:-(.5), position:absolute</small></li>
+   </ul>
+</div>
+
+
+
+         
+<div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+         <article class="post-content">
+         
+<br/><br/>
+<p>SCSS</p>
+{% highlight scss %}
+.fibonacci{
+   @include make-grill();
+   ul{
+      @include make-group( (height:7, offset-y:(1/2)) ); 
+      li:nth-child(1){
+         @include make-box( (width:1, left:(2.5), top:(4.5), position:absolute) );
+      }
+      li:nth-child(2){
+         @include make-box( (width:1, left:(3.5), top:(4.5), position:absolute) );
+      }
+      li:nth-child(3){
+         @include make-box( (width:2, left:(2.5), top:(5.5), position:absolute) );
+      }
+      li:nth-child(4){
+         @include make-box( (width:3, left:-(.5), top:(4.5), position:absolute) );
+      }
+      li:nth-child(5){
+         @include make-box( (width:5, left:-(.5), top:-(.5), position:absolute) );
+      }
+      li:nth-child(6){
+         @include make-box( (width:8, left:(4.5), top:-(.5), position:absolute) );
+      }
+   }
+}
+{% endhighlight %}
+
+<p>HTML</p>
+{% highlight html %}
+
+<div class="fibonacci">
+   <ul>
+      <li>...</li>
+      <li>...</li>
+      <li>...</li>
+      <li>...</li>
+      <li>...</li>
+      <li>...</li>
+   </ul>
+</div>
+
+{% endhighlight %}
+
+<!--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-->
+
+<h1>6. Responsive utilities</h1>
+
+
+         </article>
+      </div>
+   </div>
+</div>
+
+<div class="news">
+   <section>
+      <article class="cover-story"><small>width:8<br/> xs width:12</small></article>
+      <article><small>width:4<br/> xs width:6</small></article>
+      <article><small>width:4<br/> xs width:6</small></article>
+   </section>
+</div>
+
+
+
+         
+<div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+         <article class="post-content">
+         
+
+<p>SCSS</p>
+{% highlight scss %}
+.news{
+   @include make-grill();
+   section{
+      @include make-group();  
+      article{    
+         @include make-box( (width:4) );
+         @include make-box( (width:6), xs );
+         &.cover-story{
+            @include make-box( (width:8) );
+            @include make-box( (width:12), xs );
+         }
+      }
+   }
+}
+{% endhighlight %}
+
+<p>HTML</p>
+{% highlight html %}
+
+<div class="news">
+   <section>
+      <article class="cover-story">...</article>
+      <article>...</article>
+      <article>...</article>
+   </section>
+</div>
+
+{% endhighlight %}
+
+
