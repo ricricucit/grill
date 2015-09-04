@@ -135,3 +135,26 @@
 		}
 	}
 }
+
+/////////////////////////////////////////////////////////////////////
+
+.my-grill-600{
+	@include make-grill();
+	@include grid-background();
+	section{
+		@include make-group();	
+		article{		
+			@include make-box( (width:12, height:2) );
+			@include box-bg;
+			h1{
+				text-align: center;
+				color: rgba(86,61,124,.5);
+				@include media(xs) { font-size: 50px;}
+				@include media(sm) { font-size: 80px;}
+				@include media(md) { font-size: 100px;}
+				@include media(lg) { font-size: 120px;}
+			}
+		}
+	}
+}
+

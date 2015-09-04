@@ -300,8 +300,8 @@ permalink: /demo-1/
 {% endhighlight %}
 
 <!--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-->
-
-<h1>6. Responsive utilities</h1>
+<hr/>
+<h1>5. Responsive Utilities</h1>
 
 
          </article>
@@ -352,6 +352,62 @@ permalink: /demo-1/
       <article class="cover-story">...</article>
       <article>...</article>
       <article>...</article>
+   </section>
+</div>
+
+{% endhighlight %}
+
+<!--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-->
+<hr/>
+<h1>6. Responsive Utilities</h1>
+
+
+         </article>
+      </div>
+   </div>
+</div>
+
+<div class="my-grill-600">
+   <section>
+      <article><h1>Header</h1></article>
+   </section>
+</div>
+
+
+
+         
+<div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+         <article class="post-content">
+         
+
+<p>SCSS</p>
+{% highlight scss %}
+.my-grill{
+   @include make-grill();
+   section{
+      @include make-group();  
+      article{    
+         @include make-box( (width:12, height:2) );
+         h1{
+            text-align: center;
+            @include media(xs) { font-size: 50px;}
+            @include media(sm) { font-size: 80px;}
+            @include media(md) { font-size: 100px;}
+            @include media(lg) { font-size: 120px;}
+         }
+      }
+   }
+}
+{% endhighlight %}
+
+<p>HTML</p>
+{% highlight html %}
+
+<div class="my-grill">
+   <section>
+      <article><h1>Header</h1></article>
    </section>
 </div>
 
