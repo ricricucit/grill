@@ -153,6 +153,17 @@
 				@include media(sm) { font-size: 80px;}
 				@include media(md) { font-size: 100px;}
 				@include media(lg) { font-size: 120px;}
+				sup, sub{
+					font-size: .3em;
+    				font-weight: bold;
+    				text-decoration: underline;
+				}
+				sup{
+    				@include hidden(xs);
+				}
+				sub{
+    				@include visible-inline(xs);
+				}
 			}
 		}
 	}

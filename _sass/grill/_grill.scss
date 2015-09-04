@@ -379,27 +379,42 @@ $last-grids:$grids-default;
     @include grill-loop( make-box, $grids, $grids-keys, $attributes);
 }
 
-@mixin media ($grid-key, $grids:$last-grids){
+@mixin media ($grids-keys, $grids:$last-grids){
 	$grids: initialize-grids($grids);
-	$grid:map-get($grids, $grid-key);
-	@if map-get( $grid , screen-min) and map-has-key($grid, screen-max) {
-  		$min: map-get( $grid , screen-min);
-  		$max: map-get( $grid , screen-max);
-  		@media (min-width: $min) and (max-width: $max)  {
-			@content;
+	@each $grid-key in $grids-keys {
+		$grid:map-get($grids, $grid-key);
+		@if map-get( $grid , screen-min) and map-has-key($grid, screen-max) {
+	  		$min: map-get( $grid , screen-min);
+	  		$max: map-get( $grid , screen-max);
+	  		@media (min-width: $min) and (max-width: $max)  {
+				@content;
+			}
 		}
+		@if map-has-key($grid, screen-max) and not(map-get( $grid , screen-min)){
+			$max: map-get( $grid , screen-max);
+			@media (max-width: $max)  {
+				@content;
+			}
+		}		
+		@if map-get( $grid , screen-min) and not(map-has-key($grid, screen-max)){
+			$min: map-get( $grid , screen-min);
+			@media (min-width: $min){
+				@content;
+			}
+		}	
 	}
-	@if map-has-key($grid, screen-max) and not(map-get( $grid , screen-min)){
-		$max: map-get( $grid , screen-max);
-		@media (max-width: $max)  {
-			@content;
-		}
-	}		
-	@if map-get( $grid , screen-min) and not(map-has-key($grid, screen-max)){
-		$min: map-get( $grid , screen-min);
-		@media (min-width: $min){
-			@content;
-		}
-	}	
+} 
 
+@mixin visible ($grids-keys, $grids:$last-grids){
+	display: none;
+	@include media($grids-keys, $grids) { display: block;}
+} 
+
+@mixin visible-inline ($grids-keys, $grids:$last-grids){
+	display: none;
+	@include media($grids-keys, $grids) { display: inline;}
+} 
+
+@mixin hidden ($grids-keys, $grids:$last-grids){
+	@include media($grids-keys, $grids) { display: none;}
 } 

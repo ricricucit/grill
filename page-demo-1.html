@@ -369,7 +369,11 @@ permalink: /demo-1/
 
 <div class="my-grill-600">
    <section>
-      <article><h1>Header</h1></article>
+      <article>
+         <h1>
+            Header<sup> 01</sup><sub> 02</sub>
+         </h1>
+      </article>
    </section>
 </div>
 
@@ -396,6 +400,12 @@ permalink: /demo-1/
             @include media(sm) { font-size: 80px;}
             @include media(md) { font-size: 100px;}
             @include media(lg) { font-size: 120px;}
+            sup{
+               @include hidden(xs);
+            }
+            sub{
+               @include visible-inline(xs);
+            }
          }
       }
    }
@@ -407,7 +417,11 @@ permalink: /demo-1/
 
 <div class="my-grill">
    <section>
-      <article><h1>Header</h1></article>
+      <article>
+         <h1>
+            Header<sup> 01</sup>
+         </h1>
+      </article>
    </section>
 </div>
 
