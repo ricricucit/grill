@@ -371,7 +371,7 @@ permalink: /demo-1/
    <section>
       <article>
          <h1>
-            Header<sup> 01</sup><sub> 02</sub>
+            Header<sup> NOT XS</sup><sub> XS</sub>
          </h1>
       </article>
    </section>
@@ -419,7 +419,9 @@ permalink: /demo-1/
    <section>
       <article>
          <h1>
-            Header<sup> 01</sup>
+            Header
+            <sup> NOT XS</sup>
+            <sub> XS</sub>
          </h1>
       </article>
    </section>
@@ -428,3 +430,55 @@ permalink: /demo-1/
 {% endhighlight %}
 
 
+<!--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-->
+<hr/>
+<h1>7. Fluid Layout</h1>
+
+
+         </article>
+      </div>
+   </div>
+</div>
+
+<div class="my-grill-700">
+   <section>
+      <article><small>width:6</small></article>
+      <article><small>width:6</small></article>
+   </section>
+</div>
+
+
+
+         
+<div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+         <article class="post-content">
+         
+
+<p>SCSS</p>
+{% highlight scss %}
+.my-grill{
+   @include make-grill-fluid();
+   section{
+      @include make-group();  
+      article{    
+         @include make-box( (width:6) );
+      }
+   }
+}
+
+{% endhighlight %}
+
+<p>HTML</p>
+{% highlight html %}
+
+<div class="my-grill">
+   <section>
+      <article>...</article>
+      <article>...</article>
+   </section>
+</div>
+
+
+{% endhighlight %}

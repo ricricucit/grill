@@ -28,7 +28,7 @@
   	background-color: rgba(86,61,124,.05);
 }
 
-@mixin grid-background($grids:$grids-default, $hor:true) {
+@mixin grid-background($grids:$last-grids, $hor:true) {
 	
 	$grids: initialize-grids($grids);
 	@each $key, $value in $grids {

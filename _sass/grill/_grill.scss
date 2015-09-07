@@ -51,6 +51,8 @@ $grids-default: (
 	lg: map-merge($grid-default, $grid-lg-default)
 );
 
+
+
 $last-grids:$grids-default;
 
 
@@ -104,7 +106,8 @@ $last-grids:$grids-default;
         @if $prev{
 			 $grids-merged:map-merge($grids-merged, ( #{$prev-grid-key} :$prev-grid) );	
 		}
-	$last-grids:$grids-merged;      
+	$last-grids:$grids-merged !global; 
+ 	
 	@return $grids-merged;
 }
 
@@ -353,10 +356,27 @@ $last-grids:$grids-default;
 
 //PUBLIC MIXING
 @mixin make-grill ($grids:$grids-default) {	
+	
 	@include clear-fix;
 	margin-right: auto;
   	margin-left: auto;
     @include grill-loop( make-grill, $grids);
+}
+
+@mixin make-grill-fluid ($width:100vw) {
+
+	$grids-fluid: (
+		xs: 	(	width: 		$width	),
+		sm: 	(	width: 		$width	),
+		md: 	(	width: 		$width	),
+		lg: 	(	width: 		$width	)
+	);	
+	
+	
+
+	@include make-grill ($grids-fluid);
+	
+	
 }
 
 @mixin make-group ($attributes:empty, $grids-keys:empty, $grids:empty) {
@@ -376,11 +396,12 @@ $last-grids:$grids-default;
   	position: relative;
   	float: left;
   	min-height: 1px;
+
     @include grill-loop( make-box, $grids, $grids-keys, $attributes);
 }
 
 @mixin media ($grids-keys, $grids:$last-grids){
-	$grids: initialize-grids($grids);
+	
 	@each $grid-key in $grids-keys {
 		$grid:map-get($grids, $grid-key);
 		@if map-get( $grid , screen-min) and map-has-key($grid, screen-max) {

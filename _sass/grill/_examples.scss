@@ -169,3 +169,23 @@
 	}
 }
 
+/////////////////////////////////////////////////////////////////////
+
+.my-grill-700{
+	@include make-grill-fluid();
+	
+	@include grid-background();
+	section{
+
+		@debug	$last-grids;	
+		@include make-group();
+		
+		
+		article{		
+			@include make-box( (width:6) );
+
+			@include box-bg;
+		}
+	}
+}
+
