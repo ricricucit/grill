@@ -1,0 +1,60 @@
+---
+layout: post
+title:  "Horizontal & Vertical Shifting"
+date:   2015-09-07 16:15:01
+categories: exemples
+---
+
+
+
+         </article>
+      </div>
+   </div>
+</div>
+
+<div class="my-grill-200">
+   <section>
+      <article><small>width:6, height:4, offset-x:2</small></article>
+      <article><small>width:6, height:4, offset-x:4, top:-2</small></article>
+   </section>
+</div>
+
+
+
+         
+<div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+         <article class="post-content">
+         
+
+<p>SCSS</p>
+{% highlight scss %}
+.my-grill{
+   @include make-grill();
+   section{
+      @include make-group();  
+      article{    
+         @include make-box( (width:6, height:4) );
+         &:nth-child(1){
+            @include make-box( (offset-x:2) );
+         }
+         &:nth-child(2){
+            @include make-box( (offset-x:4, top:-2) );
+         }
+      }
+   }
+}
+{% endhighlight %}
+
+<p>HTML</p>
+{% highlight html %}
+
+<div class="my-grill">
+   <section>
+      <article>...</article>
+      <article>...</article>
+   </section>
+</div>
+
+{% endhighlight %}

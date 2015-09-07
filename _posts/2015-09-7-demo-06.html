@@ -1,0 +1,55 @@
+---
+layout: post
+title:  "Fluid Layout"
+date:   2015-09-07 16:10:01
+categories: exemples
+---
+
+
+        </article>
+      </div>
+   </div>
+</div>
+
+<div class="my-grill-700">
+   <section>
+      <article><small>width:6</small></article>
+      <article><small>width:6</small></article>
+   </section>
+</div>
+
+
+
+         
+<div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+         <article class="post-content">
+         
+
+<p>SCSS</p>
+{% highlight scss %}
+.my-grill{
+   @include make-grill-fluid();
+   section{
+      @include make-group();  
+      article{    
+         @include make-box( (width:6) );
+      }
+   }
+}
+
+{% endhighlight %}
+
+<p>HTML</p>
+{% highlight html %}
+
+<div class="my-grill">
+   <section>
+      <article>...</article>
+      <article>...</article>
+   </section>
+</div>
+
+
+{% endhighlight %}

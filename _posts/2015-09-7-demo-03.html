@@ -1,0 +1,76 @@
+---
+layout: post
+title:  "Absolute Positioning"
+date:   2015-09-07 16:14:01
+categories: exemples
+---
+
+
+         </article>
+      </div>
+   </div>
+</div>
+
+<div class="fibonacci">
+   <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li><small>width:3, left:-(.5), top:(4.5), position:absolute</small></li>
+      <li><small>width:5, left:-(.5), top:-(.5), position:absolute</small></li>
+      <li><small>width:8, left:(4.5), top:-(.5), position:absolute</small></li>
+   </ul>
+</div>
+
+
+
+         
+<div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+         <article class="post-content">
+         
+<br/><br/>
+<p>SCSS</p>
+{% highlight scss %}
+.fibonacci{
+   @include make-grill();
+   ul{
+      @include make-group( (height:7, offset-y:(1/2)) ); 
+      li:nth-child(1){
+         @include make-box( (width:1, left:(2.5), top:(4.5), position:absolute) );
+      }
+      li:nth-child(2){
+         @include make-box( (width:1, left:(3.5), top:(4.5), position:absolute) );
+      }
+      li:nth-child(3){
+         @include make-box( (width:2, left:(2.5), top:(5.5), position:absolute) );
+      }
+      li:nth-child(4){
+         @include make-box( (width:3, left:-(.5), top:(4.5), position:absolute) );
+      }
+      li:nth-child(5){
+         @include make-box( (width:5, left:-(.5), top:-(.5), position:absolute) );
+      }
+      li:nth-child(6){
+         @include make-box( (width:8, left:(4.5), top:-(.5), position:absolute) );
+      }
+   }
+}
+{% endhighlight %}
+
+<p>HTML</p>
+{% highlight html %}
+
+<div class="fibonacci">
+   <ul>
+      <li>...</li>
+      <li>...</li>
+      <li>...</li>
+      <li>...</li>
+      <li>...</li>
+      <li>...</li>
+   </ul>
+</div>
+
+{% endhighlight %}

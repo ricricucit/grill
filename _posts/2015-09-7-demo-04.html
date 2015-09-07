@@ -1,0 +1,60 @@
+---
+layout: post
+title:  "Responsive Utilities 1/2"
+date:   2015-09-07 16:13:01
+categories: exemples
+---
+
+
+  </article>
+      </div>
+   </div>
+</div>
+
+<div class="news">
+   <section>
+      <article class="cover-story"><small>width:8<br/> xs width:12</small></article>
+      <article><small>width:4<br/> xs width:6</small></article>
+      <article><small>width:4<br/> xs width:6</small></article>
+   </section>
+</div>
+
+
+
+         
+<div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+         <article class="post-content">
+         
+
+<p>SCSS</p>
+{% highlight scss %}
+.news{
+   @include make-grill();
+   section{
+      @include make-group();  
+      article{    
+         @include make-box( (width:4) );
+         @include make-box( (width:6), xs );
+         &.cover-story{
+            @include make-box( (width:8) );
+            @include make-box( (width:12), xs );
+         }
+      }
+   }
+}
+{% endhighlight %}
+
+<p>HTML</p>
+{% highlight html %}
+
+<div class="news">
+   <section>
+      <article class="cover-story">...</article>
+      <article>...</article>
+      <article>...</article>
+   </section>
+</div>
+
+{% endhighlight %}
