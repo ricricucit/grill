@@ -181,17 +181,36 @@
 	@include make-grill-fluid();
 	
 	@include grid-background();
-	section{
-
-		@debug	$last-grids;	
+	section{	
 		@include make-group();
-		
-		
 		article{		
 			@include make-box( (width:6) );
-
 			@include box-bg;
 		}
 	}
 }
 
+/////////////////////////////////////////////////////////////////////
+
+$my-grids-800: (
+		xs: 	(	columns:  2,  width:   80vw	),
+		sm: 	(	columns:  3,  width:   80vw	),
+		md: 	(	columns:  4,  width:   80vw	),
+		lg: 	(	columns:  6,  width:   80vw	)
+	);	
+
+.my-grill-800{
+	@include make-grill($my-grids-800);
+	@include grid-background();
+	section{
+		@include make-group();	
+		article{		
+			@include make-box(( width:1) );
+			@include box-bg;
+			&:first-child,&:last-child{
+				@include make-box(( width:2, height:1));
+			}
+		}
+
+	}
+}
