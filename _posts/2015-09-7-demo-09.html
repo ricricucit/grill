@@ -1,0 +1,97 @@
+---
+layout: post
+title:  "Custom Grids 2/2"
+date:   2015-09-07 16:06:01
+categories: Examples
+---
+
+
+       </article>
+      </div>
+   </div>
+</div>
+
+<div class="my-grill-900">
+   <section>
+      <article><small>w:1/7</small></article>
+      <article><small>w:1/7</small></article>
+      <article><small>w:1/7</small></article>
+      <article><small>w:1/7</small></article>
+      <article><small>w:1/7</small></article>
+      <article><small>w:1/7</small></article>
+      <article><small>w:1/7</small></article>
+      <article><small>w:1/5</small></article>
+      <article><small>w:1/5</small></article>
+      <article><small>w:1/5</small></article>
+      <article><small>w:1/5</small></article>
+      <article><small>w:1/5</small></article>
+      <article><small>w:1/7</small></article>
+      <article><small>w:1/7</small></article>
+      <article><small>w:1/7</small></article>
+      <article><small>w:1/7</small></article>
+      <article><small>w:1/7</small></article>
+      <article><small>w:1/7</small></article>
+      <article><small>w:1/7</small></article>
+
+   </section>
+</div>
+
+
+
+         
+<div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+         <article class="post-content">
+         
+
+<p>SCSS</p>
+{% highlight scss %}
+$my-grids: (
+      all:  (  columns:  1,  width:   80vw   )
+   ); 
+
+.my-grill{
+   @include make-grill($my-grids);
+   section{
+      @include make-group();  
+      article{    
+         @include make-box(( width:(1/7)) ); 
+         &:nth-child(8),&:nth-child(9),&:nth-child(10),&:nth-child(11),&:nth-child(12){
+            @include make-box(( width:(1/5)) );
+         }
+      }
+
+   }
+}
+
+{% endhighlight %}
+
+<p>HTML</p>
+{% highlight html %}
+
+<div class="my-grill">
+   <section> 
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+   </section>
+</div>
+
+{% endhighlight %}

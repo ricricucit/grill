@@ -1,0 +1,87 @@
+---
+layout: post
+title:  "Zoom"
+date:   2015-09-07 16:05:01
+categories: Examples
+---
+
+
+       </article>
+      </div>
+   </div>
+</div>
+
+<div class="my-grill-1000">
+   <section>
+      <article><small>w:1/3</small></article>
+      <article><small>w:1/3</small></article>
+      <article><small>w:1/3</small></article>
+      <article><small>w:1/3</small></article>
+      <article><small>w:1/3</small></article>
+      <article><small>w:1/3</small></article>
+      <article><small>w:1/3</small></article>
+      <article><small>w:1/3</small></article>
+      <article><small>w:1/3</small></article>
+      
+
+   </section>
+</div>
+
+
+
+         
+<div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+         <article class="post-content">
+         
+
+<p>SCSS</p>
+{% highlight scss %}
+$my-grids: (
+      all:  (  columns:  1,  width:   80vw, vertical-adjust:false )
+   ); 
+$zoom :(    width: :(8/18), 
+            left:(1/18), 
+            offset-x:-(2/18), 
+            offset-y:-(2/18), 
+            top:(1/18), 
+            z-index:1000
+      );
+
+.my-grill-{
+   @include make-grill($my-grids);
+   section{
+      @include make-group();  
+      article{      
+         @include make-box(( width:(1/3)) );
+         &:hover{
+            @include make-box( $zoom );
+            }
+         }
+
+      }
+
+   }
+}
+
+{% endhighlight %}
+
+<p>HTML</p>
+{% highlight html %}
+
+<div class="my-grill">
+   <section> 
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+      <article>...</article>
+   </section>
+</div>
+
+{% endhighlight %}
