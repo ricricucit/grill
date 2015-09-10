@@ -79,16 +79,21 @@ categories: Examples
 <p>SCSS</p>
 {% highlight scss %}
 .my-grill{
-   @include make-grill();
+  @include make-grill();
    section{
       @include make-group();  
       article{    
-         @include make-box( (width:5, height:auto, offset-x:1, top:-(1.5) ) );
+         @include make-box( (width:5, height:auto, offset-x:1, top:-(2.5) ) );
+         @include make-box( (width:6, height:auto, offset-x:0, top:-(3)),  md  );
+         @include make-box( (width:8, height:auto, offset-x:0, top:(0.5)),  sm  );
+         @include make-box( (width:10, height:auto, offset-x:0, top:(0.5)),  xs );
          &:nth-child(1){
-            @include make-box( (top:0));
+            @include make-box( (top:-0));
          }
          &:nth-child(2n+1){
             @include make-box( (offset-x:6));
+            @include make-box( (width:8, height:auto, offset-x:4, top:(0.5)),  sm );
+            @include make-box( (width:10, height:auto, offset-x:2, top:(0.5)),  xs );
          }
       }
    }
