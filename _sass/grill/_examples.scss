@@ -278,30 +278,22 @@ $my-grids-1100: (
 		lg: 	(	columns:  3,  width:   94vw, gutters:6vw, ratio:(36/31)	)
 	);	
 $my-grids-1200: (
-		xs: 	(	columns:  1,  width:   88vw, gutters:0	),
-		sm: 	(	columns:  1,  width:   41vw, gutters:0	),
-		lg: 	(	columns:  1,  width:   25.33333vw, gutters:0	)
+		xs: 	(	columns:  1,  width:   88vw, 		gutters:0 ),
+		sm: 	(	columns:  1,  width:   41vw, 		gutters:0 ),
+		lg: 	(	columns:  1,  width:   25.33333vw, 	gutters:0 )
 	);
-
 .my-grill-1100{
 	@include make-grill($my-grids-1100);
 	margin-top: 6vw;
-	
 	section{
 		@include make-group();	
 		article{		
 			@include make-box(( width:1) );
-			
-
 		}
-
 	}
 }
-
-
 .gallery{
 	@include make-grill($my-grids-1200);
-	
 	ul{
 		@include make-group();
 		list-style-type: none;
@@ -314,7 +306,6 @@ $my-grids-1200: (
 		    
 		    border:1px solid white;
 		}
-		
 		&.layout-1{
 			li{		
 				@include make-box((width:(15/36)) );
@@ -331,7 +322,6 @@ $my-grids-1200: (
 				}
 			}
 		}
-
 		&.layout-3{
 			li{		
 				
@@ -352,13 +342,10 @@ $my-grids-1200: (
 		&.info{
 			@include make-group((top:-(30/36),  height: (30/36)));
 			display: none;
-			
 			h1,h2{
 				position: relative;
 				text-align: center;
-				
 				font-weight: bold;
-				
 				margin:0;
 			    top: 50%;
 			    -webkit-transform: translateY(-50%);
@@ -367,14 +354,12 @@ $my-grids-1200: (
 			}
 			h1{
 				color: white;
-				
 				@include media(xs) { font-size: 54vw;}
 				@include media(sm) { font-size: 26vw;}
 				@include media(lg) { font-size: 16vw;}
 			}
 			h2{
 				color: black;
-				
 				@include media(xs) { font-size: 5vw;}
 				@include media(sm) { font-size: 2.5vw;}
 				@include media(lg) { font-size: 1.5vw;}

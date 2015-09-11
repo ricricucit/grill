@@ -197,5 +197,143 @@ categories: Examples
       <div class="wrapper">
         <div class="post">
          <article class="post-content">
-         
+
+<p>HTML</p>
+{% highlight html %}
+
+<div class="my-grill-1100">
+   <section>
+      <article>...</article>
+      <article>...</article>
+      <article>
+         <div class="gallery">
+            <ul class="layout-1">
+               <li style="background-image: url('http://visuelle.co.uk/site/assets/files/1600/1-new-republic-ampersand-1280x816-1.jpg')"></li>
+               <li style="background-image: url('http://visuelle.co.uk/site/assets/files/1600/3-new-republic-ampersand-1280x816.jpg')"></li>
+               <li style="background-image: url('http://visuelle.co.uk/site/assets/files/1600/2-new-republic-ampersand-1280x816.jpg')"></li>  
+            </ul>
+            <ul class="info">
+               <h1>03</h1>
+            </ul>
+            <ul class="info">
+               <h2>Ampersand<br/> Design by Sawdust</h2>
+            </ul>
+         </div>
+      </article>
+      <article>...</article>
+      <article>...</article>
+      ...
+      </section>
+</div>
+{% endhighlight %}
+    
+<p>SCSS</p>
+{% highlight scss %}
+$my-grids: (
+      xs:   (  columns:  1,  width:   94vw, gutters:6vw, ratio:(36/31)  ),
+      sm:   (  columns:  2,  width:   94vw, gutters:6vw, ratio:(36/31)  ),
+      lg:   (  columns:  3,  width:   94vw, gutters:6vw, ratio:(36/31)  )
+   ); 
+$gallery: (
+      xs:   (  columns:  1,  width:   88vw,     gutters:0 ),
+      sm:   (  columns:  1,  width:   41vw,     gutters:0 ),
+      lg:   (  columns:  1,  width:   25.33333vw,  gutters:0 )
+   );
+.my-grill{
+   @include make-grill($my-grids);
+   margin-top: 6vw;
+   section{
+      @include make-group();  
+      article{    
+         @include make-box(( width:1) );
+      }
+   }
+}
+.gallery{
+   @include make-grill($gallery);
+   ul{
+      @include make-group();
+      list-style-type: none;
+      margin:0; 
+      li{            
+         background-color: whitesmoke;
+         background-position: center center;
+          background-repeat: no-repeat;
+          background-size: cover;   
+          border:1px solid white;
+      }
+      &.layout-1{
+         li{      
+            @include make-box((width:(15/36)) );
+            &:nth-child(1){
+               @include make-box((width:(21/36), height:(30/36) ) );
+            }
+         }
+      }
+      &.layout-2{
+         li{      
+            @include make-box((width:(12/36)) );
+            &:nth-child(1),&:nth-child(2){
+               @include make-box((width:(18/36) ) );
+            }
+         }
+      }
+      &.layout-3{
+         li{      
+            
+            &:nth-child(1),&:nth-child(2){
+               @include make-box((width:(21/36),height:(15/36) ) );
+            }
+            &:nth-child(3){
+               @include make-box( (width:(15/36), height:(10/36), position:absolute, left:(21/36)  ) );
+            }
+            &:nth-child(4){
+               @include make-box( (width:(15/36), height:(10/36), position:absolute, left:(21/36), top:(10/36)  ) );
+            }
+            &:nth-child(5){
+               @include make-box((width:(15/36), height:(10/36), position:absolute, left:(21/36), top:(20/36)  ) );
+            }
+         }
+      }
+      &.info{
+         @include make-group((top:-(30/36),  height: (30/36)));
+         display: none;
+         h1,h2{
+            position: relative;
+            text-align: center;
+            font-weight: bold;
+            margin:0;
+             top: 50%;
+             -webkit-transform: translateY(-50%);
+             -ms-transform: translateY(-50%);
+             transform: translateY(-50%);
+         }
+         h1{
+            color: white;
+            @include media(xs) { font-size: 54vw;}
+            @include media(sm) { font-size: 26vw;}
+            @include media(lg) { font-size: 16vw;}
+         }
+         h2{
+            color: black;
+            @include media(xs) { font-size: 5vw;}
+            @include media(sm) { font-size: 2.5vw;}
+            @include media(lg) { font-size: 1.5vw;}
+         }
+      }
+
+   }
+   &:hover{
+         cursor: pointer;
+         ul>li{
+            background-image: none!important;
+            background-color: #ffce45;
+         }
+         .info{
+            display: block;
+         }
+      }
+}
+{% endhighlight %}
+
 
