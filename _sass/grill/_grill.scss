@@ -358,6 +358,7 @@ $last-grids:$grids-default;
 @mixin make-grill ($grids:$grids-default) {	
 	
 	@include clear-fix;
+	position: relative;
 	margin-right: auto;
   	margin-left: auto;
     @include grill-loop( make-grill, $grids);
@@ -385,6 +386,8 @@ $last-grids:$grids-default;
 	$grids-keys:map-get($arg, grids-keys);
 	$grids:map-get($arg, grids);
 	@include clear-fix;	
+	left: auto;
+	right: auto;
 	@include grill-loop( make-group, $grids, $grids-keys, $attributes);
 }
 
