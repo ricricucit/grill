@@ -379,84 +379,179 @@ $my-grids-1200: (
 		}
 }
 /////////////////////////////////////////////////////////////////////
-
+$xs-scale:1.8;
+$sm-scale:1.2;
+$md-scale:1;
+$lg-scale:.8;
 $my-grids-1200: (
 		
-		all: 	(	columns:  4,  width:   480px, gutters:0, ratio:(240/380)	)
+		xs: 	(	columns:  4,  width:   48vw * $xs-scale, gutters:0, ratio:(240/520)	),
+		sm: 	(	columns:  4,  width:   48vw * $sm-scale, gutters:0, ratio:(240/380)	),
+		md: 	(	columns:  4,  width:   48vw * $md-scale, gutters:0, ratio:(240/380)	),
+		lg: 	(	columns:  4,  width:   48vw * $lg-scale, gutters:0, ratio:(240/380)	)
 	);	
 
-.my-grill-1200{
+$xs-scale:3;
+
+
+.billboard{
 	@include make-grill($my-grids-1200);
-	section{
+	.layer{
 		
-		article{		
+		.text{		
 			@include make-box(( width:1) );
 			//@include box-bg;
 		}
 		&:nth-child(1){
-			@include make-group((left:(.38), top:1, height:3.8));
+			@include make-group((left:(.38), top:1, height:3.3));
+			@include make-group((left:(.38), top:1, height:3.4),xs);
 			//background-image: url('https://farm3.staticflickr.com/2825/13622413405_1f49ce9858_o.jpg');
 		}
 		&:nth-child(2){
 			@include make-group(( position:absolute, width:4, offset-x:(.38), top:0));
-			article{		
-				@include make-box(( width:2, height:1 ) );
+			.text{		
+
 				&:nth-child(1){
-					@include make-box(( width:2, height:1, top:(0.5) ) );
+					@include make-box(( width:3, height:1, top:(0.5), left:2 ) );
+					@include make-box(( width:3, height:1, top:(0.5), left:1 ),xs );
 				}
 				&:nth-child(2){
-					@include make-box(( width:2, height:1, top:(1.5) ) );
+					@include make-box(( width:3, height:1, left:2 ) );
+					@include make-box(( width:3, height:1, left:1 ), xs);
 				}
 				&:nth-child(3){
-					@include make-box(( width:3, height:1, top:(-0.1) ) );
+					@include make-box(( width:4, height:1, top:(-0.1) ) );
+					@include make-box(( width:4, height:1, top:(-0.135) ),xs );
 				}
 				&:nth-child(4){
-					@include make-box(( width:4, height:1, left:(-0.5), top:(-0.9) ) );
+					@include make-box(( width:5, height:1, left:(-0.5), top:(-0.9) ) );
+					@include make-box(( width:5, height:1, left:(-0.5), top:(-0.85) ),xs );
 				}
-				&:nth-child(6){
-					@include make-box(( width:2, height:1, top:(0.5) ) );
+				/*&:nth-child(5){
+					@include make-box(( width:3, height:1 ) );
+				}*/
+				&:nth-child(5){
+					@include make-box(( width:3, height:1, left:(2) ) );
+					@include make-box(( width:3, height:1, left:(1) ),xs );
 				}
 			}
 		}
 	}
-
-	h1{ 
-		font-size: 50px; 
-		font-weight: bold; 
-		line-height: 50px;
-		width: 50px;
-		text-align: center;
-		left: -12px;
-		position: relative;
-	}
-
-	h2{ 
-		font-size: 41px; 
-		font-weight: bold; 
-		line-height: 41px;	
-	}
-	h3{ 
-		font-size: 20px; 
-		font-weight: bold; 
-		line-height: 20px;
-	}
-	h4{ 
-		font-size: 15px; 
-		font-weight: bold; 
-		line-height: 15px;
-	}
-	h5{ 
-		font-size: 10px; 
-		font-weight: bold; 
-		line-height: 15px;
-	}
 	h1,h2,h3,h4,h5{
 		color: whitesmoke;
+		font-weight: bold; 
 	}
 	h1{
 		color: #d31871;
 		opacity: .8;
 	}
+	h1{ 
+		text-align: center;
+		position: relative;
+		@include media(xs) { 
+			font-size: 5vw * $xs-scale; 
+			line-height: 5vw * $xs-scale;
+			width: 5vw * $xs-scale;
+			left: -1.2vw * $xs-scale;
+		}
+		@include media(sm) { 
+			font-size: 5vw * $sm-scale; 
+			line-height: 5vw * $sm-scale;
+			width: 5vw * $sm-scale;
+			left: -1.2vw * $sm-scale;
+		}
+		@include media(md) { 
+			font-size: 5vw * $md-scale; 
+			line-height: 5vw * $md-scale;
+			width: 5vw * $md-scale;
+			left: -1.2vw * $md-scale;
+		}
+		@include media(lg) { 
+			font-size: 5vw * $lg-scale; 
+			line-height: 5vw * $lg-scale;
+			width: 5vw * $lg-scale;
+			left: -1.2vw * $lg-scale;
+		}
+		
+	}
+
+	h2{ 
+		font-size: 4.1vw; 
+		line-height: 4.1vw;
+		@include media(xs) { 
+			font-size: 4.1vw * $xs-scale* .8; 
+			line-height: 4.1vw * $xs-scale* .8;
+		}
+		@include media(sm) { 
+			font-size: 4.1vw * $sm-scale; 
+			line-height: 4.1vw * $sm-scale;
+		}
+		@include media(md) { 
+			font-size: 4.1vw * $md-scale; 
+			line-height: 4.1vw * $md-scale;
+		}
+		@include media(lg) { 
+			font-size: 4.1vw * $lg-scale; 
+			line-height: 4.1vw * $lg-scale;
+		}	
+	}
+	h3{ 
+		@include media(xs) { 
+			font-size: 2vw * $xs-scale ; 
+			line-height: 2vw * $xs-scale ;
+		}
+		@include media(sm) { 
+			font-size: 2vw * $sm-scale; 
+			line-height: 2vw * $sm-scale;
+		}
+		@include media(md) { 
+			font-size: 2vw * $md-scale; 
+			line-height: 2vw * $md-scale;
+		}
+		@include media(lg) { 
+			font-size: 2vw * $lg-scale; 
+			line-height: 2vw * $lg-scale;
+		}
+	}
+	h4{ 
+		@include media(xs) { 
+			font-size: 1.5vw * $xs-scale ; 
+			line-height: 1.5vw * $xs-scale ;
+		}
+		@include media(sm) { 
+			font-size: 1.5vw * $sm-scale; 
+			line-height: 1.5vw * $sm-scale;
+		}
+		@include media(md) { 
+			font-size: 1.5vw * $md-scale; 
+			line-height: 1.5vw * $md-scale;
+		}
+		@include media(lg) { 
+			font-size: 1.5vw * $lg-scale; 
+			line-height: 1.5vw * $lg-scale;
+		}
+	}
+	h5{ 
+		font-weight: normal; 
+		letter-spacing: .1em;
+		@include media(xs) { 
+			font-size: 1vw * $xs-scale * 1.2; 
+			line-height: 1.5vw * $xs-scale * 1.2 ;
+		}
+		@include media(sm) { 
+			font-size: 1vw * $sm-scale * 1.25 ; 
+			line-height: 1.5vw * $sm-scale * 1.25 ;
+		}
+		@include media(md) { 
+			font-size: 1 * $md-scale; 
+			line-height: 1.5vw * $md-scale;
+		}
+		@include media(lg) { 
+			font-size: 1 * $lg-scale; 
+			line-height: 1.5vw * $lg-scale;
+		}
+	}
+
 
 }
 

@@ -2,7 +2,7 @@
 title: Grill
 email: dario.aschero@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  A tiny grid framework to do what others don't
+  Wanna be a grid framework for autistic designers
 baseurl: "/grill/" # the subpath of your site, e.g. /blog/
 url: "http://yourdomain.com" # the base hostname & protocol for your site
 twitter_username: darioaschero
