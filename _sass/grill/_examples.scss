@@ -205,27 +205,27 @@
 
 /////////////////////////////////////////////////////////////////////
 $grid-columns:100;
-$grid-rows:74;
+$grid-rows:116;
 $my-grids-70B: (
-		all: 	(	columns:  $grid-columns,  width:   100vw, gutters:0	)
+		xs: 	(	columns:  $grid-columns,  width:   100vw, gutters:0	),
+		sm: 	(	columns:  $grid-columns,  width:   600px, gutters:0,screen-min:600px	),
+		lg: 	(	columns:  $grid-columns,  width:   50vw, gutters:0	)
 	);
 
-@mixin make-box-left($i: 1, $list: ".box-left-#{$i}") {
-  @for $i from (1 + 1) through $grid-columns {
-    $list: ".box-left-#{$i}";
-    #{$list} {
-    	@include make-group((left: $i, width:1, position: absolute ));
-  	}
-  } 
-}
 
-@mixin make-box-top($i: 1, $list: ".box-top-#{$i}") {
-  @for $i from (1 + 1) through $grid-rows {
-    $list: ".box-top-#{$i}";
-    #{$list} {
-    	@include make-group((top: $i, width:1, position: absolute ));
-  	}
-  } 
+@mixin box-looper($max: 1, $class: ".box-", $index-args:(), $args:()) {
+	
+	@for $index from 1 through $max {
+		$merged-args:();
+		@each $arg in $index-args {
+			$merged-args:map-merge($args, (#{$arg}:$index) );
+		}
+	  	$class-i:$class+"#{$index}";
+	  	#{$class-i} { 
+	  		@include make-box($merged-args);
+	  	}
+	  
+	}
 }
 
 .my-grill-70B{
@@ -238,16 +238,16 @@ $my-grids-70B: (
 		.box{
 			@include box-bg;
 			&:nth-child(1){		
-				@include make-box( (width:30, height:40, offset-x:26, offset-y:5 )  );
+				@include make-box( (width:51, height:61, offset-x:5, offset-y:5 )  );
 			}
 			&:nth-child(2){		
-				@include make-box( (width:15, height:15, offset-x:1, offset-y:30  )  );
+				@include make-box( (width:36, height:36, offset-x:1, offset-y:30  )  );
 			}
 			&:nth-child(3){		
-				@include make-box( (width:22, height:11, offset-x:26, offset-y:1 )  );
+				@include make-box( (width:43, height:32, offset-x:5, offset-y:1 )  );
 			}
 			&:nth-child(4){		
-				@include make-box( (width:23, height:23, offset-x:1, offset-y:1 )  );
+				@include make-box( (width:44, height:44, offset-x:1, offset-y:1 )  );
 			}
 				
 		}
@@ -276,9 +276,8 @@ $my-grids-70B: (
     		}
 
 		}
-		@include make-box-top();
-		@include make-box-left();
-		
+		@include box-looper($grid-rows,".box-top-", top, (width:1, position: absolute ));
+		@include box-looper($grid-columns,".box-left-", left, (width:1, position: absolute ));		
 	}
 }
 
