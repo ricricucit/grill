@@ -213,21 +213,6 @@ $my-grids-70B: (
 	);
 
 
-@mixin box-looper($max: 1, $class: ".box-", $index-args:(), $args:()) {
-	
-	@for $index from 1 through $max {
-		$merged-args:();
-		@each $arg in $index-args {
-			$merged-args:map-merge($args, (#{$arg}:$index) );
-		}
-	  	$class-i:$class+"#{$index}";
-	  	#{$class-i} { 
-	  		@include make-box($merged-args);
-	  	}
-	  
-	}
-}
-
 .my-grill-70B{
 	@include make-grill($my-grids-70B);
 	@include grid-background();

@@ -69,7 +69,7 @@ $last-grids:$grids-default;
 
 		$u-w:map-get($grid-m, width) / map-get($grid-m, columns);
 		$u-h: map-get($grid-m, width) / map-get($grid-m, columns) * 1/map-get($grid-m, ratio);
-		
+
 	
 	$calc-values:(
 		unit-w: $u-w,
@@ -443,3 +443,18 @@ $last-grids:$grids-default;
 @mixin hidden ($grids-keys, $grids:$last-grids){
 	@include media($grids-keys, $grids) { display: none;}
 } 
+
+@mixin box-looper($max: 1, $class: ".box-", $index-args:(), $args:()) {
+	
+	@for $index from 1 through $max {
+		$merged-args:();
+		@each $arg in $index-args {
+			$merged-args:map-merge($args, (#{$arg}:$index) );
+		}
+	  	$class-i:$class+"#{$index}";
+	  	#{$class-i} { 
+	  		@include make-box($merged-args);
+	  	}
+	  
+	}
+}
