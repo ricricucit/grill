@@ -1,6 +1,8 @@
 .top-news{
 	@include make-grill();
 	@include grid-background();
+	margin-top: 40px;
+	margin-bottom: 40px;
 	section{
 		@include make-group();	
 		article{		
@@ -22,6 +24,8 @@
 .my-grill-200{
 	@include make-grill();
 	@include grid-background();
+	margin-top: 40px;
+	margin-bottom: 40px;
 	section{
 		@include make-group();	
 		article{		
@@ -43,6 +47,8 @@
 .my-grill-300{
 	@include make-grill();
 	@include grid-background($hor:false);
+	margin-top: 40px;
+	margin-bottom: 40px;
 	section{
 		@include make-group();	
 		article{		
@@ -67,10 +73,12 @@
 
 .fibonacci{
 	@include make-grill();
-	
+	margin-top: 50px;
+	margin-bottom: 85px;
 	ul{
 		@include make-group( (height:7, offset-y:(1/2)) );
 		@include grid-background();
+		
 		list-style-type: none;	
 		li{		
 			@include box-bg;
@@ -128,6 +136,8 @@
 .news{
 	@include make-grill();
 	@include grid-background();
+	margin-top: 40px;
+	margin-bottom: 40px;
 	section{
 		@include make-group();	
 		article{		
@@ -147,6 +157,8 @@
 .my-grill-600{
 	@include make-grill();
 	@include grid-background();
+	margin-top: 40px;
+	margin-bottom: 40px;
 	section{
 		@include make-group();	
 		article{		
@@ -179,8 +191,9 @@
 
 .my-grill-700{
 	@include make-grill-fluid();
-	
 	@include grid-background();
+	margin-top: 40px;
+	margin-bottom: 40px;
 	section{	
 		@include make-group();
 		article{		
@@ -189,6 +202,86 @@
 		}
 	}
 }
+
+/////////////////////////////////////////////////////////////////////
+$grid-columns:100;
+$grid-rows:74;
+$my-grids-70B: (
+		all: 	(	columns:  $grid-columns,  width:   100vw, gutters:0	)
+	);
+
+@mixin make-box-left($i: 1, $list: ".box-left-#{$i}") {
+  @for $i from (1 + 1) through $grid-columns {
+    $list: ".box-left-#{$i}";
+    #{$list} {
+    	@include make-group((left: $i, width:1, position: absolute ));
+  	}
+  } 
+}
+
+@mixin make-box-top($i: 1, $list: ".box-top-#{$i}") {
+  @for $i from (1 + 1) through $grid-rows {
+    $list: ".box-top-#{$i}";
+    #{$list} {
+    	@include make-group((top: $i, width:1, position: absolute ));
+  	}
+  } 
+}
+
+.my-grill-70B{
+	@include make-grill($my-grids-70B);
+	@include grid-background();
+	margin-top: 40px;
+	margin-bottom: 40px;
+	.layer-01{	
+		@include make-group((height: $grid-rows));
+		.box{
+			@include box-bg;
+			&:nth-child(1){		
+				@include make-box( (width:30, height:40, offset-x:26, offset-y:5 )  );
+			}
+			&:nth-child(2){		
+				@include make-box( (width:15, height:15, offset-x:1, offset-y:30  )  );
+			}
+			&:nth-child(3){		
+				@include make-box( (width:22, height:11, offset-x:26, offset-y:1 )  );
+			}
+			&:nth-child(4){		
+				@include make-box( (width:23, height:23, offset-x:1, offset-y:1 )  );
+			}
+				
+		}
+	}
+	.layer-02{	
+		@include make-group((top: 0, position: absolute));
+		.note{
+			@include make-box( (width:1, position: absolute )  );
+    		p{    
+			    position: absolute;
+			    top: 50%;
+			    left: 50%;
+			    margin-top: -10px;
+			    margin-left: -10px;
+			    width: 20px;
+			    height: 20px;
+			    border-radius: 50% 50% 50% 50%; 
+				-moz-border-radius: 50% 50% 50% 50%; 
+				-webkit-border-radius: 50% 50% 50% 50%; 
+			    background: black;
+			    color: white;
+			    line-height: 20px;
+			    font-size: 14px;
+			    font-weight: bold;
+			    text-align: center;
+    		}
+
+		}
+		@include make-box-top();
+		@include make-box-left();
+		
+	}
+}
+
 
 /////////////////////////////////////////////////////////////////////
 
@@ -202,6 +295,8 @@ $my-grids-800: (
 .my-grill-800{
 	@include make-grill($my-grids-800);
 	@include grid-background();
+	margin-top: 40px;
+	margin-bottom: 40px;
 	section{
 		@include make-group();	
 		article{		
@@ -224,6 +319,8 @@ $my-grids-900: (
 .my-grill-900{
 	@include make-grill($my-grids-900);
 	@include grid-background();
+	margin-top: 40px;
+	margin-bottom: 40px;
 	section{
 		@include make-group();	
 		article{		
@@ -249,6 +346,8 @@ $zoom :( width:(8/18), left:(1/18), offset-x:-(2/18), z-index:1000, offset-y:-(2
 .my-grill-1000{
 	@include make-grill($my-grids-1000);
 	@include grid-background();
+	margin-top: 40px;
+	margin-bottom: 40px;
 	section{
 		@include make-group();	
 		article{		
