@@ -244,7 +244,7 @@ $my-grids-70B: (
 				@include make-box( (width:36, height:36, offset-x:1, offset-y:30  )  );
 			}
 			&:nth-child(3){		
-				@include make-box( (width:43, height:32, offset-x:5, offset-y:1 )  );
+				@include make-box( (width:43, height:22, offset-x:5, offset-y:1 )  );
 			}
 			&:nth-child(4){		
 				@include make-box( (width:44, height:44, offset-x:1, offset-y:1 )  );
@@ -273,6 +273,100 @@ $my-grids-70B: (
 			    font-size: 14px;
 			    font-weight: bold;
 			    text-align: center;
+    		}
+
+		}
+		@include box-looper($grid-rows,".box-top-", top, (width:1, position: absolute ));
+		@include box-looper($grid-columns,".box-left-", left, (width:1, position: absolute ));		
+	}
+}
+
+
+
+.my-grill-70C{
+	@include make-grill($my-grids-70B);
+	
+	margin-top: 40px;
+	margin-bottom: 40px;
+	.layer-01{	
+		@include make-group((height: $grid-rows));
+		.box{
+			
+			background-color: whitesmoke;
+			background-position: center center;
+		    background-repeat: no-repeat;
+		    background-size: cover;
+			&:nth-child(1){		
+				@include make-box( (width:51, height:61, offset-x:5, offset-y:5 )  );
+			}
+			&:nth-child(2){		
+				@include make-box( (width:36, height:36, offset-x:1, offset-y:30  )  );
+			}
+			&:nth-child(3){		
+				@include make-box( (width:33, height:22, offset-x:15, offset-y:1 )  );
+			}
+			&:nth-child(4){		
+				@include make-box( (width:44, height:44, offset-x:1, offset-y:1 )  );
+			}
+				
+		}
+	}
+	.layer-02{	
+		@include make-group((top: 0, position: absolute));
+		.note{
+			@include make-box( (width:1, position: absolute )  );
+			cursor: pointer;
+    		i{  
+    			font-style: normal;;
+			    position: absolute;
+			    top: 50%;
+			    left: 50%;
+			    margin-top: -10px;
+			    margin-left: -10px;
+			    width: 20px;
+			    height: 20px;
+			    border-radius: 50% 50% 50% 50%; 
+				-moz-border-radius: 50% 50% 50% 50%; 
+				-webkit-border-radius: 50% 50% 50% 50%; 
+			    background-color: #ffce45;
+			    color: black;
+			    line-height: 20px;
+			    font-size: 14px;
+			    font-weight: bold;
+			    text-align: center;
+    		}
+    		p{
+    			display: none;
+    			position: absolute;
+			    top: 50%;
+			    left: 50%;
+			    margin-top: -35px;
+			    margin-left: -40px;
+			    width: 80px;
+			    height: 40px;
+			    background-color: #ffce45;
+			    color: black;
+			    line-height: 40px;
+			    font-size: 24px;
+			    font-weight: bold;
+			    text-align: center;
+
+    		}
+    		&:hover{
+    			i{
+    				
+    				border-radius: 0 0 0 0; 
+					-moz-border-radius: 0 0 0 0; 
+					-webkit-border-radius: 0 0 0 0; 
+					-ms-transform: rotate(45deg); 
+				    -webkit-transform: rotate(45deg);
+				    transform: rotate(45deg);
+				    color: #ffce45;
+
+    			}
+    			p{
+    				display: block;
+    			}
     		}
 
 		}
