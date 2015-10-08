@@ -4,6 +4,8 @@ title:  "Width and Height"
 subtitle:  "This is a short description of what this example is about"
 date:   2015-09-07 16:15:01
 categories: Examples
+prev: home
+next: 02.html
 ---
 
 
@@ -30,46 +32,46 @@ categories: Examples
         <div class="post">
          <article class="post-content">
          
-            <p>SCSS</p>
-            {% highlight scss %}
-            .top-news{
-               @include make-grill();
-               section{
-                  @include make-group();   
-                  article{      
-                     @include make-box( (width:3) );
-                     &.cover-story{
-                        @include make-box( (width:6, height:8) );
-                     }
-                     &.short-story{
-                        @include make-box( (width:2) );
-                     }       
-                  }
-               }
-            }
-            {% endhighlight %}
+<p>SCSS</p>
+{% highlight scss %}
+.top-news{
+   @include make-grill();
+   section{
+      @include make-group();   
+      article{      
+         @include make-box( (width:3) );
+         &.cover-story{
+            @include make-box( (width:6, height:8) );
+         }
+         &.short-story{
+            @include make-box( (width:2) );
+         }       
+      }
+   }
+}
+{% endhighlight %}
 
-            <p>HTML</p>
-            {% highlight html %}
+<p>HTML</p>
+{% highlight html %}
 
-            <div class="top-news">
-               <section>
-                  <article class="cover-story">...</article>
-                  <article>...</article>
-                  <article>...</article>
-                  <article class="short-story">...</article>
-                  <article class="short-story">...</article>
-                  <article class="short-story">...</article>
-                  <article>...</article>
-                  <article>...</article>
-               </section>
-            </div>
+<div class="top-news">
+   <section>
+      <article class="cover-story">...</article>
+      <article>...</article>
+      <article>...</article>
+      <article class="short-story">...</article>
+      <article class="short-story">...</article>
+      <article class="short-story">...</article>
+      <article>...</article>
+      <article>...</article>
+   </section>
+</div>
 
-            {% endhighlight %}
+{% endhighlight %}
 
 
          </article>
       </div>
+      {% include examples_pagination.html %}
    </div>
 </div>
-

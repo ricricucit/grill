@@ -1,0 +1,13 @@
+<div class="pagination">
+	{% if page.prev == 'home' %} 
+		<a href="{{site.baseurl}}">← project home</a>
+	{% elsif page.prev %} 
+		<a href="{{page.prev}}">← prev example</a>
+	{% endif %}
+	 | 
+	{% if page.next == 'home' %} 
+		<a href="{{site.baseurl}}">project home →</a>
+	{% elsif page.next %} 
+		<a href="{{page.next}}">next example →</a>
+	{% endif %}
+</div>
